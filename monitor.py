@@ -23,9 +23,9 @@ def run_command(ssh, command):
         return f"[EXCEPTION] {e}"
 
 if __name__ == "__main__":
-    HOST = "127.0.0.1"
-    USER = "dhiab"
-    PASSWORD = "dhia99794333"
+    HOST = "192.168.66.133"
+    USER = "firas"
+    PASSWORD = "firas123hayet"
 
     ssh = connect_ssh(HOST, USER, PASSWORD)
     
