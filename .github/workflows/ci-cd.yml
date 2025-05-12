@@ -29,7 +29,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: dhiabz
-          password: dhiabouzid92
+          password: dhia99794333
 
       - name: 🛠️ Construire l'image Docker
         run: docker build -t dhiabz/dhiafiras:latest .
