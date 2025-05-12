@@ -6,10 +6,10 @@ def connect_ssh(host, user, password):
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
         ssh.connect(hostname=host, username=user, password=password)
-        print(f"✅ Connexion SSH réussie à {host} avec l'utilisateur {user}")
+        print(f" Connexion SSH réussie à {host} avec l'utilisateur {user}")
         return ssh
     except Exception as e:
-        print(f"❌ Échec de la connexion SSH : {e}")
+        print(f" Échec de la connexion SSH : {e}")
         return None
 
 def run_command(ssh, command):
@@ -24,13 +24,13 @@ def run_command(ssh, command):
         return f"[EXCEPTION] {e}"
 
 def show_system_info(ssh):
-    print("\n=== 📊 Mémoire (RAM) ===")
+    print("\n===  Mémoire (RAM) ===")
     print(run_command(ssh, 'powershell -Command "systeminfo | findstr /C:\"Total Physical Memory\""'))
 
-    print("\n=== 🧠 CPU ===")
+    print("\n=== CPU ===")
     print(run_command(ssh, 'powershell -Command "wmic cpu get loadpercentage"'))
 
-    print("\n=== 💾 Disques ===")
+    print("\n=== Disques ===")
     print(run_command(ssh, 'powershell -Command "Get-PSDrive -PSProvider FileSystem | Out-String"'))
 
 def manage_services(ssh):
@@ -53,12 +53,12 @@ def manage_services(ssh):
         elif choice == '4':
             break
         else:
-            print("❓ Option invalide, veuillez réessayer.")
+            print("Option invalide, veuillez réessayer.")
 
 def main():
-    HOST = input("🖥️ Adresse IP ou nom d'hôte : ")
-    USER = input("👤 Nom d'utilisateur : ")
-    PASSWORD = getpass.getpass("🔐 Mot de passe : ")
+    HOST = input(" Adresse IP ou nom d'hôte : ")
+    USER = input(" Nom d'utilisateur : ")
+    PASSWORD = getpass.getpass(" Mot de passe : ")
 
     ssh = connect_ssh(HOST, USER, PASSWORD)
     if not ssh:
@@ -76,22 +76,22 @@ def main():
         if choix == '1':
             show_system_info(ssh)
         elif choix == '2':
-            confirm = input("⚠️ Êtes-vous sûr de vouloir redémarrer ? (o/N) : ")
+            confirm = input(" Êtes-vous sûr de vouloir redémarrer ? (o/N) : ")
             if confirm.lower() == 'o':
                 print(run_command(ssh, 'shutdown /r /t 0'))
                 break
         elif choix == '3':
-            confirm = input("⚠️ Êtes-vous sûr de vouloir éteindre ? (o/N) : ")
+            confirm = input(" Êtes-vous sûr de vouloir éteindre ? (o/N) : ")
             if confirm.lower() == 'o':
                 print(run_command(ssh, 'shutdown /s /t 0'))
                 break
         elif choix == '4':
             manage_services(ssh)
         elif choix == '5':
-            print("🔌 Déconnexion et sortie...")
+            print(" Déconnexion et sortie...")
             break
         else:
-            print("❓ Option invalide, veuillez réessayer.")
+            print(" Option invalide, veuillez réessayer.")
 
     ssh.close()
 
